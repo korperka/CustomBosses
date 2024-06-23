@@ -3,7 +3,10 @@ package hi.korperka.custombosses.bosses.entityimage;
 import lombok.Getter;
 import org.bukkit.entity.Entity;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EntityImagesStorage {
     @Getter
