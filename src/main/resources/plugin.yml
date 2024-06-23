@@ -1,0 +1,4 @@
+name: CustomBosses
+version: '${version}'
+main: hi.korperka.custombosses.CustomBosses
+api-version: '1.20'
