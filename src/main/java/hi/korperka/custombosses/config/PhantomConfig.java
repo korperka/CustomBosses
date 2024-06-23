@@ -7,7 +7,6 @@ import pl.mikigal.config.annotation.Comment;
 import pl.mikigal.config.annotation.ConfigName;
 
 import java.util.List;
-import java.util.Set;
 
 @ConfigName("phantomconfig.yml")
 public interface PhantomConfig extends Config {
@@ -44,4 +43,6 @@ public interface PhantomConfig extends Config {
     default List<Biome> getPhantomsSpawnBiomes() { return List.of(Biome.BADLANDS, Biome.DESERT); }
     @Comment("Кол-во фантомов в куче, которые смогут натурально заспавнится после убийства босса")
     default Integer getPhantomsNaturalSpawnCount() { return 4; }
+    @Comment("Множитель урона фантома")
+    default Double getPhantomDamageMultiplier() { return 1.0; }
 }

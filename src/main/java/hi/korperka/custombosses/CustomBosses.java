@@ -8,6 +8,7 @@ import hi.korperka.custombosses.config.PhantomConfig;
 import hi.korperka.custombosses.listeners.ImmunitiesListener;
 import hi.korperka.custombosses.listeners.MiscListener;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.mikigal.config.ConfigAPI;
@@ -46,5 +47,10 @@ public final class CustomBosses extends JavaPlugin {
 
     public static CustomBosses getInstance() {
         return CustomBosses.getPlugin(CustomBosses.class);
+    }
+
+    public void sendGlobalMessage(String message) {
+        Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(message));
+        getLogger().info(message);
     }
 }

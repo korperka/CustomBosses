@@ -1,13 +1,18 @@
 package hi.korperka.custombosses.bosses.entityimage;
 
 import hi.korperka.custombosses.enums.Immunity;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Enemy;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Phantom;
+import org.bukkit.entity.Slime;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -26,6 +31,8 @@ public class EntityImage<T extends Enemy> {
     private String customName;
     @Builder.Default
     private boolean customNameVisible = false;
+    @Builder.Default
+    private double damageMultiplier = 1;
 
     @Nullable
     public T create(Location location) {
@@ -45,6 +52,11 @@ public class EntityImage<T extends Enemy> {
         if (health != 0 && healthAttribute != null) {
             healthAttribute.setBaseValue(health);
             entity.setHealth(health);
+        }
+
+        AttributeInstance damageAttribute = entity.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE);
+        if(damageAttribute != null) {
+            damageAttribute.setBaseValue(damageAttribute.getBaseValue() * damageMultiplier);
         }
 
         if (entity instanceof Phantom) {

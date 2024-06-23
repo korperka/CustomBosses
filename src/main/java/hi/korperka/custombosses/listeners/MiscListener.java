@@ -1,13 +1,14 @@
 package hi.korperka.custombosses.listeners;
 
 import hi.korperka.custombosses.CustomBosses;
-import hi.korperka.custombosses.bosses.entityimage.EntityImage;
+import hi.korperka.custombosses.bosses.DragonBossImage;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.entity.*;
+import org.bukkit.entity.EnderCrystal;
+import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -51,10 +52,10 @@ public class MiscListener implements Listener {
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 EnderDragon creature = (EnderDragon) event.getEntity();
 
-                EntityImage.builder()
+                DragonBossImage.builder()
                         .type(EntityType.ENDER_DRAGON)
                         .health(plugin.getDragonConfig().getDragonHealth() + plugin.getDragonConfig().getDragonHealthForPlayer() * creature.getWorld().getPlayers().size())
-                        .build().apply(creature);
+                        .build().registerListener().apply(creature);
             }, 5);
         }
 

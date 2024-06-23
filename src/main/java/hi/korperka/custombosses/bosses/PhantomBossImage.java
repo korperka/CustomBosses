@@ -21,7 +21,9 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 @SuperBuilder
 public class PhantomBossImage extends EntityImage<Phantom> implements Listener {
@@ -60,7 +62,7 @@ public class PhantomBossImage extends EntityImage<Phantom> implements Listener {
         Entity entity = event.getEntity();
         if (EntityImagesStorage.getEntityImage(entity) == this) {
             plugin.getPhantomConfig().setPhantomDefeated(true);
-            Bukkit.broadcastMessage(plugin.getPhantomConfig().getPhantomDeathMessage());
+            plugin.sendGlobalMessage(plugin.getPhantomConfig().getPhantomDeathMessage());
         }
 
         bossBar.removeAll();
@@ -71,7 +73,7 @@ public class PhantomBossImage extends EntityImage<Phantom> implements Listener {
         bossBar.setTitle(plugin.getPhantomConfig().getPhantomCustomName());
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getLocation().distance(bossLocation) <= 30) {
+            if (player.getLocation().distance(bossLocation) <= 64) {
                 bossBar.addPlayer(player);
             } else {
                 bossBar.removePlayer(player);

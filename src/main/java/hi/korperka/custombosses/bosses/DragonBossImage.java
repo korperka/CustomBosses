@@ -3,21 +3,15 @@ package hi.korperka.custombosses.bosses;
 import hi.korperka.custombosses.CustomBosses;
 import hi.korperka.custombosses.bosses.entityimage.EntityImage;
 import hi.korperka.custombosses.bosses.entityimage.EntityImagesStorage;
-import hi.korperka.custombosses.enums.Immunity;
-import org.bukkit.Bukkit;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
+import lombok.experimental.SuperBuilder;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import java.util.Collections;
-import java.util.List;
-
+@SuperBuilder
 public class DragonBossImage extends EntityImage<EnderDragon> implements Listener {
     CustomBosses plugin = CustomBosses.getInstance();
 

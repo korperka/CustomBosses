@@ -27,7 +27,7 @@ public class SummonBoss extends BaseCommand {
         Location location = new Location(player.getWorld(), x, y, z);
         location.getChunk().load();
         location.getChunk().addPluginChunkTicket(plugin);
-        Bukkit.broadcastMessage(plugin.getPhantomConfig().getPhantomAppearMessage());
+        plugin.sendGlobalMessage(plugin.getPhantomConfig().getPhantomAppearMessage());
         
         Bukkit.getScheduler().runTaskLater(plugin, () -> PhantomBossImage.builder()
                 .type(EntityType.PHANTOM)
@@ -36,6 +36,7 @@ public class SummonBoss extends BaseCommand {
                 .immunities(List.of(Immunity.FIRE))
                 .customName(plugin.getPhantomConfig().getPhantomCustomName())
                 .customNameVisible(false)
+                .damageMultiplier(plugin.getPhantomConfig().getPhantomDamageMultiplier())
                 .build().registerListener().create(location),
                 plugin.getPhantomConfig().getPhantomAppearTime() * 20);
     }
