@@ -13,13 +13,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 @SuperBuilder
 public class DragonBossImage extends EntityImage<EnderDragon> implements Listener {
-    CustomBosses plugin = CustomBosses.getInstance();
+    CustomBosses plugin;
 
     protected DragonBossImage(EntityImageBuilder<EnderDragon, ?, ?> b) {
         super(b);
     }
 
     public DragonBossImage registerListener() {
+        plugin = CustomBosses.getInstance();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         return this;
     }

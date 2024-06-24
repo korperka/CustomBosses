@@ -27,7 +27,7 @@ import java.util.Random;
 
 @SuperBuilder
 public class PhantomBossImage extends EntityImage<Phantom> implements Listener {
-    private final CustomBosses plugin = CustomBosses.getInstance();
+    private CustomBosses plugin;
     private BossBar bossBar;
     private List<Integer> phantomsSpawnHealth;
     private int spawnHealth;
@@ -41,6 +41,7 @@ public class PhantomBossImage extends EntityImage<Phantom> implements Listener {
     @Nullable
     @Override
     public Phantom create(Location location) {
+        plugin = CustomBosses.getInstance();
         plugin.getLogger().info(String.format("Фантом заспавнился на локации %s;%s;%s;%s", (location.getWorld() == null) ? "" : location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
         plugin.getPhantomConfig().setPhantomDefeated(false);
         return super.create(location);

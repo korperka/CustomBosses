@@ -34,7 +34,7 @@ public final class CustomBosses extends JavaPlugin {
                 this);
 
         getServer().getPluginManager().registerEvents(new ImmunitiesListener(), this);
-        getServer().getPluginManager().registerEvents(new MiscListener(), this);
+        getServer().getPluginManager().registerEvents(new MiscListener(this), this);
 
         BukkitCommandManager manager = new BukkitCommandManager(this);
         manager.registerCommand(new SummonBoss());

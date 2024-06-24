@@ -19,10 +19,10 @@ import java.util.Map;
 
 public class MiscListener implements Listener {
     private final CustomBosses plugin;
-    private Map<EnderCrystal, Integer> crystalHits;
+    private final Map<EnderCrystal, Integer> crystalHits;
 
-    public MiscListener() {
-        this.plugin = CustomBosses.getInstance();
+    public MiscListener(CustomBosses plugin) {
+        this.plugin = plugin;
         this.crystalHits = new HashMap<>();
     }
 
@@ -48,15 +48,11 @@ public class MiscListener implements Listener {
 
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if(event.getEntity().getType() == EntityType.ENDER_DRAGON) {
-            Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                EnderDragon creature = (EnderDragon) event.getEntity();
-
-                DragonBossImage.builder()
-                        .type(EntityType.ENDER_DRAGON)
-                        .health(plugin.getDragonConfig().getDragonHealth() + plugin.getDragonConfig().getDragonHealthForPlayer() * creature.getWorld().getPlayers().size())
-                        .build().registerListener().apply(creature);
-            }, 5);
+        if(event.getEntityType() == EntityType.ENDER_DRAGON) {
+            Bukkit.getScheduler().runTaskLater(plugin, () -> DragonBossImage.builder()
+                    .type(EntityType.ENDER_DRAGON)
+                    .health(plugin.getDragonConfig().getDragonHealth() + plugin.getDragonConfig().getDragonHealthForPlayer() * event.getEntity().getWorld().getPlayers().size())
+                    .build().registerListener().apply((EnderDragon) event.getEntity()), 5);
         }
 
         if(!canLimitSpawn(event)) {
