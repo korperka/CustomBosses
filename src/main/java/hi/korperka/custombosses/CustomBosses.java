@@ -1,7 +1,6 @@
 package hi.korperka.custombosses;
 
 import co.aikar.commands.BukkitCommandManager;
-import hi.korperka.custombosses.bosses.entityimage.EntityImagesStorage;
 import hi.korperka.custombosses.commands.SummonBoss;
 import hi.korperka.custombosses.config.DragonConfig;
 import hi.korperka.custombosses.config.PhantomConfig;
@@ -9,7 +8,6 @@ import hi.korperka.custombosses.listeners.ImmunitiesListener;
 import hi.korperka.custombosses.listeners.MiscListener;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.mikigal.config.ConfigAPI;
 import pl.mikigal.config.style.CommentStyle;
@@ -38,11 +36,6 @@ public final class CustomBosses extends JavaPlugin {
 
         BukkitCommandManager manager = new BukkitCommandManager(this);
         manager.registerCommand(new SummonBoss());
-    }
-
-    @Override
-    public void onDisable() {
-        EntityImagesStorage.getBossEntities().forEach((entityImage, entities) -> entities.forEach(Entity::remove));
     }
 
     public static CustomBosses getInstance() {

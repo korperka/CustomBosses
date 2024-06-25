@@ -14,6 +14,7 @@ import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPhantom;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +23,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -41,13 +43,13 @@ public class PhantomBossImage extends EntityImage<Phantom> implements Listener {
     @Nullable
     @Override
     public Phantom create(Location location) {
-        plugin = CustomBosses.getInstance();
         plugin.getLogger().info(String.format("Фантом заспавнился на локации %s;%s;%s;%s", (location.getWorld() == null) ? "" : location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
         plugin.getPhantomConfig().setPhantomDefeated(false);
         return super.create(location);
     }
 
     public PhantomBossImage registerListener() {
+        plugin = CustomBosses.getInstance();
         phantomsSpawnHealth = plugin.getPhantomConfig().getPhantomsSpawnHealth();
         phantomsSpawnHealth.sort(Collections.reverseOrder());
         spawnHealthIndex = 0;
@@ -114,8 +116,9 @@ public class PhantomBossImage extends EntityImage<Phantom> implements Listener {
             if(spawnHealthIndex >= phantomsSpawnHealth.size()) {
                 return;
             }
+
+            spawnHealth = phantomsSpawnHealth.get(spawnHealthIndex);
             spawnHealthIndex++;
-            spawnHealth = phantomsSpawnHealth.get(spawnHealthIndex - 1);
             Random random = new Random();
             if (random.nextInt(100) < phantomConfig.getPhantomsSpawnChance()) {
                 int spawnCount = random.nextInt(maxCount - minCount + 1) + minCount;
@@ -124,6 +127,11 @@ public class PhantomBossImage extends EntityImage<Phantom> implements Listener {
                 }
             }
         }
+        Player nearestPlayer = Bukkit.getOnlinePlayers().stream()
+                .min(Comparator.comparingDouble(player -> player.getLocation().distanceSquared(entityLocation)))
+                .orElse(null);
+
+        ((CraftPhantom) entity).setTarget(nearestPlayer);
 
         updateBossBar(healthPercentage, entityLocation);
     }
