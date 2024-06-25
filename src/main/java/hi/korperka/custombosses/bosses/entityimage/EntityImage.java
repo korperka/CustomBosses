@@ -9,7 +9,10 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Enemy;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Phantom;
+import org.bukkit.entity.Slime;
 
 import javax.annotation.Nullable;
 import java.util.List;
